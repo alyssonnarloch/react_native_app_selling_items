@@ -8,11 +8,12 @@ const Input = ({ placeholder }) => {
 };
 
 const styles = {
+    alignSelf: 'stretch',
     fontSize: 20,
     marginLeft: 8,
     marginRight: 8,
     marginTop: 4,
-    marginButton: 4
+    marginBottom: 4
 };
 
 export { Input };

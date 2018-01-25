@@ -1,8 +1,10 @@
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
-const Button = ({ children, onPress }) => {
+const Button = ({ children, color = '#56bc03', onPress }) => {
     const { container, text } = styles;
+
+    container.backgroundColor = color;
 
     return (
         <TouchableOpacity onPress={onPress} style={container}>
@@ -12,9 +14,8 @@ const Button = ({ children, onPress }) => {
 };
 
 const styles = {
-    container: {
-        alignItems: 'center',
-        backgroundColor: '#56bc03',
+    container: {        
+        alignSelf: 'stretch',
         borderColor: '#adadad',
         borderRadius: 8,
         borderWidth: 1,
@@ -25,9 +26,10 @@ const styles = {
         marginButton: 4
     },
     text: {
+        alignSelf: 'center',
+        color: 'white',
         fontSize: 18,
-        fontWeight: 'bold',
-        color: 'white'
+        fontWeight: 'bold'
     }
 };
 
