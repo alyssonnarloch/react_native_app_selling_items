@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Button, Input } from './components';
+import { Input } from './components';
+import Button from './components/Button';
+import {
+    BUTTON_PRIMARY,
+    BUTTON_SUCCESS,
+} from './components/types';
 
 class App extends Component {
     render() {
         return (
             <View style={styles.viewStyle}>
                 <Input placeholder='email@email.com' />
-                <Button>Entrar</Button>
-                <Button color='blue'>Visualizar Produtos</Button>
+                <Button type={BUTTON_SUCCESS}>Entrar</Button>
+                <Button type={BUTTON_PRIMARY}>Visualizar Produtos</Button>
             </View>
         );
     }

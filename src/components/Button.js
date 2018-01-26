@@ -1,19 +1,37 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
+import {
+    BUTTON_PRIMARY,
+    BUTTON_DANGER,
+} from './types';
 
-const Button = ({ children, color = '#56bc03', onPress }) => {
-    const { container, text } = styles;
+class Button extends Component {
+    setColorStyle() {
+        switch (this.props.type) {
+            case BUTTON_PRIMARY:
+                return styles.containerBlue;
+            case BUTTON_DANGER:
+                return styles.containerRed;
+            default:
+                return styles.containerGreen;
+        }
+    }
 
-    container.backgroundColor = color;
+    render() {
+        const { container, text } = styles;
 
-    return (
-        <TouchableOpacity onPress={onPress} style={container}>
-            <Text style={text}>{children}</Text>
-        </TouchableOpacity>
-    );
-};
+        return (
+            <TouchableOpacity 
+                onPress={this.props.onPress} 
+                style={[container, this.setColorStyle()]}
+            >
+                <Text style={text}>{this.props.children}</Text>
+            </TouchableOpacity>
+        );
+    }
+ }
 
-const styles = {
+ const styles = {
     container: {        
         alignSelf: 'stretch',
         borderColor: '#adadad',
@@ -23,7 +41,16 @@ const styles = {
         marginLeft: 8,
         marginRight: 8,
         marginTop: 4,
-        marginButton: 4
+        marginBottom: 4
+    },
+    containerBlue: {
+        backgroundColor: 'blue'
+    },
+    containerGreen: {
+        backgroundColor: 'green'
+    },
+    containerRed: {
+        backgroundColor: 'red'
     },
     text: {
         alignSelf: 'center',
@@ -33,4 +60,4 @@ const styles = {
     }
 };
 
-export { Button };
+export default Button;
