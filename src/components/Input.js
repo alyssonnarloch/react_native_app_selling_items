@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextInput } from 'react-native';
 
-const Input = ({ onChangeText, placeholder, value }) => {
+const Input = ({ onChangeText, placeholder, secure = false, value }) => {
     return (
         <TextInput 
             autoCorrect={false}
@@ -10,6 +10,7 @@ const Input = ({ onChangeText, placeholder, value }) => {
             placeholderTextColor='#c6c6c6' 
             value={value}
             onChangeText={onChangeText}
+            secureTextEntry={secure}
         />
     );
 };

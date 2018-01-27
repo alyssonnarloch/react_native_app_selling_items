@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { Image, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Input } from './';
-import { emailChanged } from '../actions';
+import { emailChanged, passwordChanged } from '../actions';
 import Button from './Button';
 import {
     BUTTON_PRIMARY,
@@ -14,9 +14,16 @@ class Login extends Component {
 
         return (
             <View style={styles.viewStyle}>
+                <Image 
+                    source={require('../resources/images/logo.png')}
+                />
                 <Input 
                     placeholder='email@email.com' 
                     onChangeText={this.props.emailChanged}
+                />
+                <Input 
+                    placeholder='password' 
+                    onChangeText={this.props.passwordChanged}
                 />
                 <Button type={BUTTON_SUCCESS}>Entrar</Button>
                 <Button type={BUTTON_PRIMARY}>Visualizar Produtos</Button>
@@ -29,17 +36,18 @@ const styles = {
     viewStyle: {
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'center',
+        //justifyContent: 'center',
         alignItems: 'center',
     }
 };
 
 const mapStateToProps = ({ login }) => {
-    const { text } = login;
+    const { email, password } = login;
 
-    return { text };
+    return { email, password };
 };
 
 export default connect(mapStateToProps, {
-    emailChanged
+    emailChanged,
+    passwordChanged
 })(Login);
