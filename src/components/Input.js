@@ -1,9 +1,16 @@
 import React from 'react';
 import { TextInput } from 'react-native';
 
-const Input = ({ placeholder }) => {
+const Input = ({ onChangeText, placeholder, value }) => {
     return (
-        <TextInput style={styles} placeholder={placeholder} placeholderTextColor='#c6c6c6' />
+        <TextInput 
+            autoCorrect={false}
+            style={styles} 
+            placeholder={placeholder} 
+            placeholderTextColor='#c6c6c6' 
+            value={value}
+            onChangeText={onChangeText}
+        />
     );
 };
 
