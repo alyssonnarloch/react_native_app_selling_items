@@ -1,1 +1,2 @@
-export const INPUT_CHANGED = 'input_changed';
+// Login
+export const EMAIL_CHANGED = 'email_changed';
