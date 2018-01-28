@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Image, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Input } from './';
-import { emailChanged, passwordChanged } from '../actions';
+import { emailChanged, passwordChanged, loginUser } from '../actions';
 import Button from './Button';
 import {
     BUTTON_PRIMARY,
@@ -10,8 +10,13 @@ import {
 } from '../components/types';
 
 class Login extends Component {
-    render() {
+    onPressSignIn() {
+        const { email, password } = this.props;
 
+        return this.props.loginUser({ email, password });
+    }
+
+    render() {
         return (
             <View style={styles.viewStyle}>
                 <Image 
@@ -25,7 +30,7 @@ class Login extends Component {
                     placeholder='password' 
                     onChangeText={this.props.passwordChanged}
                 />
-                <Button type={BUTTON_SUCCESS}>Entrar</Button>
+                <Button type={BUTTON_SUCCESS} onPress={this.onPressSignIn.bind(this)}>Entrar</Button>
                 <Button type={BUTTON_PRIMARY}>Visualizar Produtos</Button>
             </View>
         );
@@ -41,13 +46,14 @@ const styles = {
     }
 };
 
-const mapStateToProps = ({ login }) => {
-    const { email, password } = login;
+const mapStateToProps = ({ loginReducer }) => {
+    const { email, password } = loginReducer;
 
     return { email, password };
 };
 
 export default connect(mapStateToProps, {
     emailChanged,
-    passwordChanged
+    passwordChanged,
+    loginUser
 })(Login);
