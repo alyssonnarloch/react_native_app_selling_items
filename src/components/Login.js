@@ -23,12 +23,15 @@ class Login extends Component {
                     source={require('../resources/images/logo.png')}
                 />
                 <Input 
-                    placeholder='email@email.com' 
+                    maxLength={24}
                     onChangeText={this.props.emailChanged}
+                    placeholder='email@email.com' 
                 />
                 <Input 
-                    placeholder='password' 
+                    maxLength={12}
                     onChangeText={this.props.passwordChanged}
+                    placeholder='password' 
+                    secure
                 />
                 <Button type={BUTTON_SUCCESS} onPress={this.onPressSignIn.bind(this)}>Entrar</Button>
                 <Button type={BUTTON_PRIMARY}>Visualizar Produtos</Button>

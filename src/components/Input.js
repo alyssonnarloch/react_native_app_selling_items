@@ -1,16 +1,17 @@
 import React from 'react';
 import { TextInput } from 'react-native';
 
-const Input = ({ onChangeText, placeholder, secure = false, value }) => {
+const Input = ({ maxLength = 255, onChangeText, placeholder, secure = false, value }) => {
     return (
         <TextInput 
             autoCorrect={false}
             style={styles} 
+            maxLength={maxLength}
+            onChangeText={onChangeText}
             placeholder={placeholder} 
             placeholderTextColor='#c6c6c6' 
-            value={value}
-            onChangeText={onChangeText}
             secureTextEntry={secure}
+            value={value}
         />
     );
 };
