@@ -1,8 +1,8 @@
 import { EMAIL_CHANGED, PASSWORD_CHANGED } from '../actions/types';
 
 const INITIAL_STATE = {
-    email: '',
-    password: ''
+    email: 'alysson@gmail.com',
+    password: '123456'
 };
 
 export default (state = INITIAL_STATE, action) => {

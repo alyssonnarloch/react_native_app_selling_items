@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Image, View } from 'react-native';
 import { connect } from 'react-redux';
-import { Input } from './';
+import { Button, Input } from './';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
-import Button from './Button';
 import {
     BUTTON_PRIMARY,
     BUTTON_SUCCESS,
@@ -33,7 +32,12 @@ class Login extends Component {
                     placeholder='password' 
                     secure
                 />
-                <Button type={BUTTON_SUCCESS} onPress={this.onPressSignIn.bind(this)}>Entrar</Button>
+                <Button 
+                    onPress={this.onPressSignIn.bind(this)}
+                    type={BUTTON_SUCCESS} 
+                >
+                    Entrar
+                </Button>
                 <Button type={BUTTON_PRIMARY}>Visualizar Produtos</Button>
             </View>
         );
