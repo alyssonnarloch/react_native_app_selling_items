@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import { connect } from 'react-redux';
+import { nameChanged, save } from '../actions';
 import { Button, Input } from './';
 
 class ProductCreate extends Component {
-    onPressCreate() {
+    onNameChanged(text) {
+        this.props.nameChanged(text);
+    }
 
+    onPressCreate() {
+        const { name } = this.props;
+
+        this.props.save({ name });
     }
 
     render() {
         return (
             <View>
-                <Input placeholder="Nome" />
+                <Input placeholder="Nome" onChangeText={this.onNameChanged.bind(this)} errorMessage={this.props.validation.name} />
                 <Input placeholder="Descrição" multiline numberOfLines={5} />
                 <Input placeholder="Link imagem" />
                 <Input placeholder="Valor" />
@@ -23,4 +31,13 @@ class ProductCreate extends Component {
     }
 }
 
-export default ProductCreate;
+const mapStateToProps = ({ productReducer }) => {
+    const { name, validation } = productReducer;
+
+    return { name, validation };
+};
+
+export default connect(mapStateToProps, {
+    nameChanged,
+    save
+})(ProductCreate);

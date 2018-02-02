@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Image, View } from 'react-native';
 import { connect } from 'react-redux';
-import { Button, Input } from './';
+import { Button, Content, Input } from './';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
 import {
     BUTTON_PRIMARY,
@@ -17,9 +17,10 @@ class Login extends Component {
 
     render() {
         return (
-            <View style={styles.viewStyle}>
+            <Content>
                 <Image 
                     source={require('../resources/images/logo.png')}
+                    style={styles.image}
                 />
                 <Input 
                     maxLength={24}
@@ -39,16 +40,14 @@ class Login extends Component {
                     Entrar
                 </Button>
                 <Button type={BUTTON_PRIMARY}>Visualizar Produtos</Button>
-            </View>
+            </Content>
         );
     }
 }
 
 const styles = {
-    viewStyle: {
-        flex: 1,
-        flexDirection: 'column',
-        //justifyContent: 'center',
+    image: {
+        justifyContent: 'center',
         alignItems: 'center',
     }
 };

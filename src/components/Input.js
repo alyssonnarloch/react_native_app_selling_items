@@ -1,30 +1,39 @@
-import React from 'react';
-import { TextInput } from 'react-native';
+import React, { Component } from 'react';
+import { Text, TextInput, View } from 'react-native';
 
-const Input = ({ 
-    maxLength = 255, 
-    multiline = false, 
-    numberOfLines = 1, 
-    onChangeText, 
-    placeholder, 
-    secure = false, 
-    value 
-}) => {
-    return (
-        <TextInput 
-            autoCorrect={false}
-            style={styles} 
-            maxLength={maxLength}
-            multiline={multiline}
-            numberOfLines={numberOfLines}
-            onChangeText={onChangeText}
-            placeholder={placeholder} 
-            placeholderTextColor='#c6c6c6' 
-            secureTextEntry={secure}
-            value={value}
-        />
-    );
-};
+class Input extends Component {
+    displayErrorMessage(message) {
+        if (typeof (message) !== 'undefined' && message !== '') {
+            console.log(message);
+            return (
+                <Text>
+                    {message}
+                </Text>
+            );
+        }
+    }
+
+    render() {
+        return (
+            <View>
+                <TextInput 
+                    autoCorrect={this.props.autoCorrect}
+                    style={styles} 
+                    maxLength={this.props.maxLength}
+                    multiline={this.props.multiline}
+                    numberOfLines={this.props.numberOfLines}
+                    onChangeText={this.props.onChangeText}
+                    placeholder={this.props.placeholder} 
+                    placeholderTextColor='#c6c6c6' 
+                    secureTextEntry={this.props.secure}
+                    value={this.props.value}
+                />
+
+                {this.displayErrorMessage(this.props.errorMessage)}
+            </View>
+        );
+    }
+}
 
 const styles = {
     alignSelf: 'stretch',
