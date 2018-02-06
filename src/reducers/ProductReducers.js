@@ -22,8 +22,10 @@ export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case NAME_CHANGED:
             return { ...state, name: action.payload };
+        case LINK_CHANGED:
+            return { ...state, linkImage: action.payload };
         case PRODUCT_SAVE_OK:
-            return { ...state, ...INITIAL_STATE };
+            return { ...state, validation: action.payload };
         case PRODUCT_SAVE_FAIL:
             return { ...state, validation: action.payload };
         default:

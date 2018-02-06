@@ -18,14 +18,16 @@ class Login extends Component {
     render() {
         return (
             <Content>
-                <Image 
-                    source={require('../resources/images/logo.png')}
-                    style={styles.image}
-                />
+                <View style={styles.imageBlock}>
+                    <Image 
+                        source={require('../resources/images/logo.png')}                        
+                    />
+                </View>
                 <Input 
                     maxLength={24}
                     onChangeText={this.props.emailChanged}
-                    placeholder='email@email.com' 
+                    placeholder='email@email.com'
+                    errorMessage={this.props.validation.login}
                 />
                 <Input 
                     maxLength={12}
@@ -46,16 +48,16 @@ class Login extends Component {
 }
 
 const styles = {
-    image: {
-        justifyContent: 'center',
+    imageBlock: {
         alignItems: 'center',
+        justifyContent: 'center'
     }
 };
 
 const mapStateToProps = ({ loginReducer }) => {
-    const { email, password } = loginReducer;
+    const { email, password, validation } = loginReducer;
 
-    return { email, password };
+    return { email, password, validation };
 };
 
 export default connect(mapStateToProps, {

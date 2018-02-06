@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
-import { EMAIL_CHANGED, PASSWORD_CHANGED } from './types';
+import { EMAIL_CHANGED, PASSWORD_CHANGED, LOGIN_OK, LOGIN_FAIL } from './types';
 
 export const emailChanged = (text) => {
     return {
@@ -17,22 +17,36 @@ export const passwordChanged = (text) => {
 };
 
 export const loginUser = ({ email, password }) => {
+    console.log('Login');
     return (dispatch) => {
-        console.log('oieeeeeee');
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(user => {
-                teste(dispatch, user);
+                console.log('OK');
+                loginOk(dispatch, user);
                 Actions.productCreate();
             })
             .catch((error) => {
-                console.log(error);
-                firebase.auth().createUserWithEmailAndPassword(email, password)
-                    .then(user => teste(dispatch, user))
-                    .catch(() => teste(dispatch));
+                console.log('FAIL', error);
+                loginFail(dispatch, { login: 'E-mail ou senha inválidos.' });
+                //firebase.auth().createUserWithEmailAndPassword(email, password)
+                //    .then(user => teste(dispatch, user))
+                //    .catch(() => teste(dispatch));
             });
     };
 };
 
-const teste = (dispatch, user) => {
-    console.log(user);
+export const loginFail = (dispatch, validation) => {
+    dispatch({
+        type: LOGIN_FAIL,
+        payload: validation
+    });
 };
+
+
+export const loginOk = (dispatch, user) => {
+    dispatch({
+        type: LOGIN_OK,
+        payload: user
+    });
+};
+

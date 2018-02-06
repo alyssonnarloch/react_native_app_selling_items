@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
-import { nameChanged, save } from '../actions';
+import { linkChanged, nameChanged, save } from '../actions';
 import { Button, Input } from './';
 
 class ProductCreate extends Component {
+    onLinkChanged(text) {
+        this.props.linkChanged(text);
+    }
+
     onNameChanged(text) {
         this.props.nameChanged(text);
     }
 
     onPressCreate() {
-        const { name } = this.props;
+        const { name, linkImage } = this.props;
 
-        this.props.save({ name });
+        this.props.save({ name, linkImage });
     }
 
     render() {
@@ -20,7 +24,7 @@ class ProductCreate extends Component {
             <View>
                 <Input placeholder="Nome" onChangeText={this.onNameChanged.bind(this)} errorMessage={this.props.validation.name} />
                 <Input placeholder="Descrição" multiline numberOfLines={5} />
-                <Input placeholder="Link imagem" />
+                <Input placeholder="Link imagem" onChangeText={this.onLinkChanged.bind(this)} errorMessage={this.props.validation.linkImage} />
                 <Input placeholder="Valor" />
                 <Input placeholder="Tipo" />
                 <Button onPress={this.onPressCreate.bind(this)}>
@@ -32,12 +36,13 @@ class ProductCreate extends Component {
 }
 
 const mapStateToProps = ({ productReducer }) => {
-    const { name, validation } = productReducer;
+    const { linkImage, name, validation } = productReducer;
 
-    return { name, validation };
+    return { linkImage, name, validation };
 };
 
 export default connect(mapStateToProps, {
+    linkChanged,
     nameChanged,
     save
 })(ProductCreate);

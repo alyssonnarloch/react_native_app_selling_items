@@ -1,6 +1,8 @@
 // Login
 export const EMAIL_CHANGED = 'email_changed';
 export const PASSWORD_CHANGED = 'password_changed';
+export const LOGIN_OK = 'login_ok';
+export const LOGIN_FAIL = 'login_fail';
 
 // Product
 export const NAME_CHANGED = 'name_changed';

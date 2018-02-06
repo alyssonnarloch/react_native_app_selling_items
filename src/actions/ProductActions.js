@@ -1,4 +1,5 @@
 import  { Actions } from 'react-native-router-flux';
+import { empty } from '../validation/ProductValidation';
 import {
     NAME_CHANGED,
     DESCRIPTION_CHANGED,
@@ -9,6 +10,13 @@ import {
     PRODUCT_SAVE_OK
 } from './types';
 
+export const linkChanged = (text) => {
+    return {
+        type: LINK_CHANGED,
+        payload: text
+    };
+};
+
 export const nameChanged = (text) => {
     return {
         type: NAME_CHANGED,
@@ -16,11 +24,24 @@ export const nameChanged = (text) => {
     };
 };
 
-export const save = ({ name }) => {
+export const save = ({ name, linkImage }) => {
     return (dispatch) => {
-        if (name === '') {
-            fail(dispatch, { name: 'Obrigatório' });
-        } else {
+        let error = false;
+        let validation = {};
+
+        if (empty(name)) {
+            error = true;
+            validation.name = 'Nome Obrigatório';
+            fail(dispatch, validation);
+        }
+        
+        if (empty(linkImage)) {
+            error = true;
+            validation.linkImage = ' Link Obrigatório';
+            fail(dispatch, validation);
+        } 
+        
+        if (!error) {
             ok(dispatch);
         }
     };
@@ -37,6 +58,6 @@ export const fail = (dispatch, validation) => {
 export const ok = (dispatch) => {
     dispatch({
         type: PRODUCT_SAVE_OK,
-        payload: ''
+        payload: {}
     });
 };

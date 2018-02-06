@@ -2,11 +2,17 @@ import React, { Component } from 'react';
 import { Text, TextInput, View } from 'react-native';
 
 class Input extends Component {
+    getStyle(errorMessage) {
+        if (typeof (errorMessage) === 'undefined' || errorMessage === '') {
+            return [styles.input];
+        }
+        return [styles.input, styles.inputWithError];
+    }
+
     displayErrorMessage(message) {
         if (typeof (message) !== 'undefined' && message !== '') {
-            console.log(message);
             return (
-                <Text>
+                <Text style={styles.errorMessage}>
                     {message}
                 </Text>
             );
@@ -18,7 +24,6 @@ class Input extends Component {
             <View>
                 <TextInput 
                     autoCorrect={this.props.autoCorrect}
-                    style={styles} 
                     maxLength={this.props.maxLength}
                     multiline={this.props.multiline}
                     numberOfLines={this.props.numberOfLines}
@@ -27,6 +32,7 @@ class Input extends Component {
                     placeholderTextColor='#c6c6c6' 
                     secureTextEntry={this.props.secure}
                     value={this.props.value}
+                    style={this.getStyle(this.props.errorMessage)}
                 />
 
                 {this.displayErrorMessage(this.props.errorMessage)}
@@ -36,13 +42,27 @@ class Input extends Component {
 }
 
 const styles = {
-    alignSelf: 'stretch',
-    fontSize: 20,
-    marginLeft: 8,
-    marginRight: 8,
-    marginTop: 4,
-    marginBottom: 4,
-    textAlignVertical: 'top'
+    input: {
+        alignSelf: 'stretch',
+        fontSize: 20,
+        marginLeft: 8,
+        marginRight: 8,
+        marginTop: 8,
+        textAlignVertical: 'top'
+    },
+    inputWithError: {
+        borderColor: 'red',
+        borderWidth: 2,
+        borderRadius: 6
+    },
+    errorMessage: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        marginLeft: 14,
+        marginRight: 8,
+        marginTop: 1,
+        color: 'red'
+    }
 };
 
 export { Input };
