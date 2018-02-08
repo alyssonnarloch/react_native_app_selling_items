@@ -1,40 +1,33 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Picker } from 'react-native';
 import { connect } from 'react-redux';
-import { nameChanged, descriptionChanged, linkChanged, priceChanged, save } from '../actions';
+import { productFieldChanged, save } from '../actions';
 import { Button, Input } from './';
 
 class ProductCreate extends Component {
-    onNameChanged(text) {
-        this.props.nameChanged(text);
-    }
-    
-    onDescriptionChanged(text) {
-        this.props.descriptionChanged(text);
-    }
-
-    onLinkChanged(text) {
-        this.props.linkChanged(text);
-    }
-
-    onPriceChanged(text) {
-        this.props.priceChanged(text);
-    }
-
     onPressCreate() {
-        const { name, description, linkImage, price } = this.props;
+        const { name, description, linkImage, price, type } = this.props;
 
-        this.props.save({ name, description, linkImage, price });
+        this.props.save({ name, description, linkImage, price, type });
     }
 
     render() {
         return (
             <View>
-                <Input placeholder="Nome" onChangeText={this.onNameChanged.bind(this)} errorMessage={this.props.validation.name} />
-                <Input placeholder="Descrição" multiline numberOfLines={5} onChangeText={this.onDescriptionChanged.bind(this)} errorMessage={this.props.validation.description} />
-                <Input placeholder="Link imagem" onChangeText={this.onLinkChanged.bind(this)} errorMessage={this.props.validation.linkImage} />
-                <Input placeholder="Valor" onChangeText={this.onPriceChanged.bind(this)} errorMessage={this.props.validation.price} />
-                <Input placeholder="Tipo" />
+                <Input placeholder="Nome" onChangeText={value => this.props.productFieldChanged({ prop: 'name', value })} value={this.props.name} errorMessage={this.props.validation.name} />
+                <Input placeholder="Descrição" multiline numberOfLines={5} onChangeText={value => this.props.productFieldChanged({ prop: 'description', value })} errorMessage={this.props.validation.description} />
+                <Input placeholder="Link imagem" onChangeText={value => this.props.productFieldChanged({ prop: 'linkImage', value })} errorMessage={this.props.validation.linkImage} />
+                <Input placeholder="Valor" onChangeText={value => this.props.productFieldChanged({ prop: 'price', value })} errorMessage={this.props.validation.price} />
+                <Picker 
+                    selectedValue={this.props.type} 
+                    style={styles.picker}   
+                    onValueChange={value => this.props.productFieldChanged({ prop: 'type', value })}                
+                >
+                    <Picker.Item label="Selecione" value="0" />
+                    <Picker.Item label="Automóvel" value="1" />
+                    <Picker.Item label="Vídeo Game" value="2" />
+                    <Picker.Item label="Smartphone" value="3" />
+                </Picker>
                 <Button onPress={this.onPressCreate.bind(this)}>
                     Salvar
                 </Button>
@@ -43,16 +36,21 @@ class ProductCreate extends Component {
     }
 }
 
-const mapStateToProps = ({ productReducer }) => {
-    const { name, description, linkImage, price, validation } = productReducer;
+const styles = {
+    picker: {
+        marginLeft: 8,
+        marginRight: 8,
+        marginTop: 8
+    }
+};
 
-    return { name, description, linkImage, price, validation };
+const mapStateToProps = ({ productReducer }) => {
+    const { name, description, linkImage, price, type, validation } = productReducer;
+
+    return { name, description, linkImage, price, type, validation };
 };
 
 export default connect(mapStateToProps, {
-    nameChanged,
-    descriptionChanged,
-    linkChanged,
-    priceChanged,
+    productFieldChanged,
     save
 })(ProductCreate);

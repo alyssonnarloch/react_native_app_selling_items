@@ -1,44 +1,19 @@
 import  { Actions } from 'react-native-router-flux';
 import { empty } from '../validation/Common';
 import {
-    NAME_CHANGED,
-    DESCRIPTION_CHANGED,
-    LINK_CHANGED,
-    PRICE_CHANGED,
-    TYPE_CHANGED,
+    PRODUCT_FIELD_CHANGED,
     PRODUCT_SAVE_FAIL,
     PRODUCT_SAVE_OK
 } from './types';
 
-export const descriptionChanged = (text) => {
+export const productFieldChanged = ({ prop, value }) => {
     return {
-        type: DESCRIPTION_CHANGED,
-        payload: text
+        type: PRODUCT_FIELD_CHANGED,
+        payload: { prop, value }
     };
 };
 
-export const linkChanged = (text) => {
-    return {
-        type: LINK_CHANGED,
-        payload: text
-    };
-};
-
-export const nameChanged = (text) => {
-    return {
-        type: NAME_CHANGED,
-        payload: text
-    };
-};
-
-export const priceChanged = (text) => {
-    return {
-        type: PRICE_CHANGED,
-        payload: text
-    };
-};
-
-export const save = ({ name, description, linkImage, price }) => {
+export const save = ({ name, description, linkImage, price, type }) => {
     return (dispatch) => {
         let error = false;
         let validation = {};
@@ -64,6 +39,12 @@ export const save = ({ name, description, linkImage, price }) => {
         if (empty(price)) {
             error = true;
             validation.price = 'Preço Obrigatório';
+            fail(dispatch, validation);
+        } 
+        
+        if (empty(type)) {
+            error = true;
+            validation.type = 'Tipo Obrigatório';
             fail(dispatch, validation);
         } 
 
