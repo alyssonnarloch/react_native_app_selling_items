@@ -21,16 +21,17 @@ export const loginUser = ({ email, password }) => {
     return (dispatch) => {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(user => {
-                console.log('OK');
                 loginOk(dispatch, user);
                 Actions.productCreate();
             })
             .catch((error) => {
-                console.log('FAIL', error);
-                loginFail(dispatch, { login: 'E-mail ou senha inválidos.' });
-                //firebase.auth().createUserWithEmailAndPassword(email, password)
-                //    .then(user => teste(dispatch, user))
-                //    .catch(() => teste(dispatch));
+                console.log(error);
+                firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then(user => {
+                    loginOk(dispatch, user);
+                    Actions.productCreate();
+                })
+                .catch(() => loginFail(dispatch));
             });
     };
 };

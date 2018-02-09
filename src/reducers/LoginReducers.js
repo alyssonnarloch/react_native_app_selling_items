@@ -7,8 +7,11 @@ import {
 
 const INITIAL_STATE = {
     email: 'alysson@gmail.com',
+    //email: '',
     password: '123456',
-    validation: {}
+    //password: '',
+    validation: {},
+    user: null
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -22,7 +25,7 @@ export default (state = INITIAL_STATE, action) => {
         case LOGIN_FAIL:
             return { ...state, validation: action.payload };
         case LOGIN_OK:
-            return { ...state, INITIAL_STATE };
+            return { ...state, INITIAL_STATE, user: action.payload };
         default:
             return state;
     }
