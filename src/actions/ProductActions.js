@@ -19,43 +19,10 @@ export const productListByUser = () => {
     const { currentUser } = firebase.auth();
 
     return (dispatch) => {
-        let productsList = {};
-        console.log(productsList);
-
-        /*
-        firebase.database().ref(`/users/${currentUser.uid}/products`)
-            .on('value', snapshotProductsIds => {
-                snapshotProductsIds.forEach(child => {
-                    firebase.database().ref(`/products/${child.val()}`)
-                        .on('value', snapshotProductsContent => {
-                            products[snapshotProductsContent.key] = snapshotProductsContent.val();
-                        });
-                });
-            });
-        */
-       
-
-        firebase.database().ref(`/users/${currentUser.uid}/products`)
-            .on('value', snapshotProductsIds => {
-                snapshotProductsIds.forEach(child => {
-                    firebase.database().ref(`/products/${child.val()}`)
-                        .on('value', snapshotProductsContent => {
-                            productsList[snapshotProductsContent.key] = snapshotProductsContent.val();
-                            console.log(productsList);
-                        });
-                    });
-
-                dispatch({ type: PRODUCT_LIST_BY_USER, payload: productsList });
-        });
-
-
-       /*
-       firebase.database().ref('/products/')
+       firebase.database().ref(`/products/${currentUser.uid}`)
             .on('value', snapshot => {
-                console.log('meodeos');
                 dispatch({ type: PRODUCT_LIST_BY_USER, payload: snapshot.val() });
             });
-        */
     };
 };
 
@@ -97,12 +64,9 @@ export const save = ({ name, description, linkImage, price, type }) => {
         } 
 
         if (!error) {
-            firebase.database().ref('/products')
-                .push({ name, description, linkImage, price, type, userId: currentUser.uid })
-                .then(product => {
-                    firebase.database().ref(`/users/${currentUser.uid}/products`)
-                        .push(product.key);
-
+            firebase.database().ref(`/products/${currentUser.uid}`)
+                .push({ name, description, linkImage, price, type })
+                .then(() => {
                     Actions.productList();
                 });
         }

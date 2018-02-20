@@ -21,16 +21,16 @@ export const loginUser = ({ email, password }) => {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(user => {
                 loginOk(dispatch, user);
-                //Actions.productList();
-                Actions.productCreate();
+                Actions.productList();
+                //Actions.productCreate();
             })
             .catch((error) => {
                 console.log(error);
                 firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then(user => {
                     loginOk(dispatch, user);
-                    //Actions.productList();
-                    Actions.productCreate();
+                    Actions.productList();
+                    //Actions.productCreate();
                 })
                 .catch(() => loginFail(dispatch));
             });
@@ -43,7 +43,6 @@ export const loginFail = (dispatch, validation) => {
         payload: validation
     });
 };
-
 
 export const loginOk = (dispatch, user) => {
     dispatch({

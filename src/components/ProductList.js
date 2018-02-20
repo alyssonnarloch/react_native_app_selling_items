@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { ListView, ScrollView, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { productListByUser } from '../actions';
+import ListItem from './ListItem';
 
 class ProductList extends Component {
     componentWillMount() {
@@ -12,7 +13,6 @@ class ProductList extends Component {
     }
     
     componentWillReceiveProps(nextProps) {
-        console.log('Props', nextProps);
         this.createDataSource(nextProps);
     }
 
@@ -25,7 +25,7 @@ class ProductList extends Component {
     }
 
     renderRow(product) {
-        return <Text>{product.name}</Text>;
+        return <ListItem product={product} />;
     }
 
     render() {
@@ -40,7 +40,6 @@ class ProductList extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log('state.products', state.products);
     const products = _.map(state.products, (val, uid) => {
         return { ...val, uid };
     });
