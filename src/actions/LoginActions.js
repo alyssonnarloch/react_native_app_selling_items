@@ -17,11 +17,11 @@ export const passwordChanged = (text) => {
 };
 
 export const loginUser = ({ email, password }) => {
-    console.log('Login');
     return (dispatch) => {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(user => {
                 loginOk(dispatch, user);
+                //Actions.productList();
                 Actions.productCreate();
             })
             .catch((error) => {
@@ -29,6 +29,7 @@ export const loginUser = ({ email, password }) => {
                 firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then(user => {
                     loginOk(dispatch, user);
+                    //Actions.productList();
                     Actions.productCreate();
                 })
                 .catch(() => loginFail(dispatch));

@@ -2,6 +2,7 @@ import React from 'react';
 import { Router, Scene } from 'react-native-router-flux';
 import Login from './components/Login';
 import ProductCreate from './components/ProductCreate';
+import ProductList from './components/ProductList';
 
 const RouterComponent = () => {
     return (
@@ -12,6 +13,7 @@ const RouterComponent = () => {
                 </Scene>
                 <Scene key="product" hideNavBar>
                     <Scene key="productCreate" component={ProductCreate} title="Novo produto" hideNavBar={false} />
+                    <Scene key="productList" component={ProductList} title="Produtos" hideNavBar={false} />
                 </Scene>
             </Scene>
         </Router>

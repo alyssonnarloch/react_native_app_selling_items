@@ -44,8 +44,8 @@ const styles = {
     }
 };
 
-const mapStateToProps = ({ productReducer }) => {
-    const { name, description, linkImage, price, type, validation } = productReducer;
+const mapStateToProps = ({ productFormReducer }) => {
+    const { name, description, linkImage, price, type, validation } = productFormReducer;
 
     return { name, description, linkImage, price, type, validation };
 };

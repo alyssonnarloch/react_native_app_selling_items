@@ -8,3 +8,4 @@ export const LOGIN_FAIL = 'login_fail';
 export const PRODUCT_FIELD_CHANGED = 'product_field_changed';
 export const PRODUCT_SAVE_OK = 'product_save_ok';
 export const PRODUCT_SAVE_FAIL = 'product_save_fail';
+export const PRODUCT_LIST_BY_USER = 'product_list_by_user';
